@@ -90,26 +90,35 @@ function showAddress2(address2) {
 function showContact(contactId) {
   var contact = addressBook.findContact(contactId);
   $("#show-contact").show();
-  $(".first-name").html(contact.firstName);
-  $(".last-name").html(contact.lastName);
-  $(".phone-number").html(contact.phoneNumber);
-  $(".email-address").html(contact.emailAddress);
-  // $(".physical-address").html(contact.newAddress.city + " " + contact.newAddress.zip + "!");
-  $(".physical-address").html("<ul><li id='home'>Home</li><li id='office'>Office</li></ul>");
+  $("#show-contact").text("");
+  if(contact.firstName){
+    $("#show-contact").append("<p>First Name: " + contact.firstName + "</p>");
+  }
+  if(contact.lastName){ 
+    $("#show-contact").append("<p>Last Name: " + contact.lastName + "</p>");
+  }
+  if(contact.phoneNumber){ 
+    $("#show-contact").append("<p>Phone Number: " + contact.phoneNumber + "</p>");
+  }
+  if(contact.emailAddress){ 
+    $("#show-contact").append("<p>Email Address: " + contact.emailAddress + "</p>");
+  }
+  if(contact.home){
+  $("#show-content").html("<ul><li id='home'>Home</li><li id='office'>Office</li></ul>");
     $("li#home").click(function(){
       showAddress(contact.newAddress)
     })
     $("li#office").click(function(){
       showAddress2(contact.newAddress2)
     })
-    
+  }
   
 
   
   var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" + contact.id + ">Delete</button");
-  $("span").filter(":contains('')").remove();
+  
 }
 
 
