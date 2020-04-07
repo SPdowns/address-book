@@ -42,15 +42,16 @@ function Address(street, city, zip, type){
   this.street = street;
   this.city = city;
   this.zip = zip;
-  this.type = type;
+  this.type = type
 }
 
-function Contact(firstName, lastName, phoneNumber, emailAddress, physicalAddress) {
+function Contact(firstName, lastName, phoneNumber, emailAddress, newAddress){
   this.firstName = firstName,
   this.lastName = lastName,
   this.phoneNumber = phoneNumber,
   this.emailAddress = emailAddress,
-  this.physicalAddress = physicalAddress
+  this.newAddress = newAddress
+  // this.physicalAddress = physicalAddress
 }
 
 Contact.prototype.fullName = function() {
@@ -76,8 +77,7 @@ function showContact(contactId) {
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneNumber);
   $(".email-address").html(contact.emailAddress);
- 
-  $(".physical-address").html(contact.physicalAddress);
+  $(".physical-address").html(contact.newAddress.city + " " + contact.newAddress.zip + "!");
  
   var buttons = $("#buttons");
   buttons.empty();
@@ -103,21 +103,33 @@ $(document).ready(function() {
     var inputtedLastName = $("input#new-last-name").val();
     var inputtedPhoneNumber = $("input#new-phone-number").val();
     var inputtedEmailAddress = $("input#new-email-address").val();
-    var inputtedPhysicalAddress = $("input#new-physical-address").val();
+    // var inputtedPhysicalAddress = $("input#new-physical-address").val();
+    //use this V not this ^
      //collect street from input
-  //collect city ''
-  // '' zip ''
+     //collect city ''
+    // '' zip ''
+    // '' type '' 
+    var inputtedStreet = $("input#new-street").val();
+    var inputtedCity = $("input#new-city").val();
+    var inputtedZip = $("input#new-zip").val();
+    var inputtedType = $("input#new-zip").val();
 
     $("input#new-first-name").val("");
     $("input#new-last-name").val("");
     $("input#new-phone-number").val("");
     $("input#new-email-address").val("");
-    $("input#new-physical-address").val("");
-    var newAddress = new Address(street,city, zip, type)
-    var newAddress2 = new Address(street2,city2, zip2, type2)
-    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmailAddress, [newAddress,newAddress2]);
+    $("input#new-street").val("");
+    $("input#new-city").val("");
+    $("input#new-zip").val("");
+    $("input#new-type").val("");
+    var newAddress = new Address(inputtedStreet, inputtedCity, inputtedZip, inputtedType)
+    // var newAddress2 = new Address(inputtedStreet2, inputtedCity2, inputtedZip2, inputtedType2)
+    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmailAddress, newAddress);
     addressBook.addContact(newContact);
+    console.log("Contact: ", newContact);
+    console.log("Address book: ", addressBook);
     displayContactDetails(addressBook)
+    console.log(newAddress)
   })
 })
 
