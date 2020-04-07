@@ -79,12 +79,13 @@ function displayContactDetails(addressBookToDisplay) {
 };
 
 function showAddress(address) {
-  $("li#home").html("<li>Home</li><li>" + address.street + " " + address.city + " " + address.zip + "</li>");
+  $("li#home").html("<li id='homeIsHere'>Home</li><li id='answerIsHere'>" + address.street + " " + address.city + " " + address.zip + "</li>");
 }
 
 function showAddress2(address2) {
   $("li#office").html("<li>Office</li><li>" + address2.street2 + " " + address2.city2 + " " + address2.zip2 + "</li>");
 }
+
 
 function showContact(contactId) {
   var contact = addressBook.findContact(contactId);
@@ -101,11 +102,14 @@ function showContact(contactId) {
     $("li#office").click(function(){
       showAddress2(contact.newAddress2)
     })
+    
+  
 
   
   var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" + contact.id + ">Delete</button");
+  $("span").filter(":contains('')").remove();
 }
 
 

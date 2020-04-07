@@ -5,3 +5,15 @@
 #show-address {
   display: none;
 }
+
+#answerIsHere {
+  color: red;
+}
+
+#homeIsHere {
+  color: blue;
+}
+
+#home {
+  color: blue;
+}
