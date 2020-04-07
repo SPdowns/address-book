@@ -44,14 +44,20 @@ function HomeAddress(street, city, zip){
   this.zip = zip;
 }
 
+function OfficeAddress(street2, city2, zip2){
+  this.street2 = street2;
+  this.city2 = city2;
+  this.zip2 = zip2;
+}
 //business logic for contacts
 
-function Contact(firstName, lastName, phoneNumber, emailAddress, newAddress){
+function Contact(firstName, lastName, phoneNumber, emailAddress, newAddress, newAddress2){
   this.firstName = firstName,
   this.lastName = lastName,
   this.phoneNumber = phoneNumber,
   this.emailAddress = emailAddress,
-  this.newAddress = newAddress
+  this.newAddress = newAddress,
+  this.newAddress2 = newAddress2
   
   // this.physicalAddress = physicalAddress
 }
@@ -76,6 +82,10 @@ function showAddress(address) {
   $("li#home").html("<li>Home</li><li>" + address.street + " " + address.city + " " + address.zip + "</li>");
 }
 
+function showAddress2(address2) {
+  $("li#office").html("<li>Office</li><li>" + address2.street2 + " " + address2.city2 + " " + address2.zip2 + "</li>");
+}
+
 function showContact(contactId) {
   var contact = addressBook.findContact(contactId);
   $("#show-contact").show();
@@ -87,7 +97,11 @@ function showContact(contactId) {
   $(".physical-address").html("<ul><li id='home'>Home</li><li id='office'>Office</li></ul>");
     $("li#home").click(function(){
       showAddress(contact.newAddress)
-  })
+    })
+    $("li#office").click(function(){
+      showAddress2(contact.newAddress2)
+    })
+
   
   var buttons = $("#buttons");
   buttons.empty();
@@ -123,6 +137,11 @@ $(document).ready(function() {
     var inputtedStreet = $("input#new-street").val();
     var inputtedCity = $("input#new-city").val();
     var inputtedZip = $("input#new-zip").val();
+    var inputtedStreet2 = $("input#new-street2").val();
+    var inputtedCity2 = $("input#new-city2").val();
+    var inputtedZip2 = $("input#new-zip2").val();
+    
+    
 
     $("input#new-first-name").val("");
     $("input#new-last-name").val("");
@@ -131,14 +150,18 @@ $(document).ready(function() {
     $("input#new-street").val("");
     $("input#new-city").val("");
     $("input#new-zip").val("");
+    $("input#new-street2").val("");
+    $("input#new-city2").val("");
+    $("input#new-zip2").val("");
     var newAddress = new HomeAddress(inputtedStreet, inputtedCity, inputtedZip)
-    // var newAddress2 = new Address(inputtedStreet2, inputtedCity2, inputtedZip2, inputtedType2)
-    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmailAddress, newAddress);
+    var newAddress2 = new OfficeAddress(inputtedStreet2, inputtedCity2, inputtedZip2)
+    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmailAddress, newAddress, newAddress2);
     addressBook.addContact(newContact);
     console.log("Contact: ", newContact);
     console.log("Address book: ", addressBook);
     displayContactDetails(addressBook)
     console.log(newAddress)
+    console.log(newAddress2)
   })
 })
 
