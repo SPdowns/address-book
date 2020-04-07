@@ -37,13 +37,14 @@ AddressBook.prototype.deleteContact = function(id) {
   return false;
 }
 
-// Business Logic for Contacts ---------
-function Address(street, city, zip, type){
+// Business Logic for address ---------
+function HomeAddress(street, city, zip){
   this.street = street;
   this.city = city;
   this.zip = zip;
-  this.type = type
 }
+
+//business logic for contacts
 
 function Contact(firstName, lastName, phoneNumber, emailAddress, newAddress){
   this.firstName = firstName,
@@ -51,6 +52,7 @@ function Contact(firstName, lastName, phoneNumber, emailAddress, newAddress){
   this.phoneNumber = phoneNumber,
   this.emailAddress = emailAddress,
   this.newAddress = newAddress
+  
   // this.physicalAddress = physicalAddress
 }
 
@@ -70,6 +72,10 @@ function displayContactDetails(addressBookToDisplay) {
   contactsList.html(htmlForContactInfo);
 };
 
+function showAddress(address) {
+  $("li#home").html("<li>Home</li><li>" + address.street + " " + address.city + " " + address.zip + "</li>");
+}
+
 function showContact(contactId) {
   var contact = addressBook.findContact(contactId);
   $("#show-contact").show();
@@ -77,12 +83,17 @@ function showContact(contactId) {
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneNumber);
   $(".email-address").html(contact.emailAddress);
-  $(".physical-address").html(contact.newAddress.city + " " + contact.newAddress.zip + "!");
- 
+  // $(".physical-address").html(contact.newAddress.city + " " + contact.newAddress.zip + "!");
+  $(".physical-address").html("<ul><li id='home'>Home</li><li id='office'>Office</li></ul>");
+    $("li#home").click(function(){
+      showAddress(contact.newAddress)
+  })
+  
   var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" + contact.id + ">Delete</button");
 }
+
 
 function attachContactListeners() {
   $("ul#contacts").on("click", "li", function() {
@@ -112,7 +123,6 @@ $(document).ready(function() {
     var inputtedStreet = $("input#new-street").val();
     var inputtedCity = $("input#new-city").val();
     var inputtedZip = $("input#new-zip").val();
-    var inputtedType = $("input#new-zip").val();
 
     $("input#new-first-name").val("");
     $("input#new-last-name").val("");
@@ -121,8 +131,7 @@ $(document).ready(function() {
     $("input#new-street").val("");
     $("input#new-city").val("");
     $("input#new-zip").val("");
-    $("input#new-type").val("");
-    var newAddress = new Address(inputtedStreet, inputtedCity, inputtedZip, inputtedType)
+    var newAddress = new HomeAddress(inputtedStreet, inputtedCity, inputtedZip)
     // var newAddress2 = new Address(inputtedStreet2, inputtedCity2, inputtedZip2, inputtedType2)
     var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmailAddress, newAddress);
     addressBook.addContact(newContact);
@@ -132,8 +141,6 @@ $(document).ready(function() {
     console.log(newAddress)
   })
 })
-
-
 
 
 
